@@ -1,5 +1,5 @@
 use sha2::{Sha256, Digest};
-use std::{fmt, mem::take};
+use std::{fmt::{self, write}, mem::take};
 
 
 
@@ -58,5 +58,12 @@ impl Hash {
         let extra_zeros = first_nonzero.leading_zeros();
 
         (leading_zeros as u32 + extra_zeros) >= difficulty
+    }
+}
+
+
+impl fmt::Display for Hash {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "{}", self.to_hex())
     }
 }
